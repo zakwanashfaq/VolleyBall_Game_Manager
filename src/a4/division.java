@@ -7,6 +7,8 @@ public class division {
     private team[] divisionArr = new team[5];
     // array of 5 match sets initialized with null
     private set[] matchSetArr = {null, null, null, null, null};
+    // array of 5 match sets initialized with null
+    private match[] matchArr = {null, null, null, null, null};
     // constructor that takes in division name
     public division(String name){
         this.divisionName = name;
@@ -15,10 +17,12 @@ public class division {
     public String getDivisionName() {
         return divisionName;
     }
-    public void setName(String name) {
+    public void setDivisionName(String name) {
         this.divisionName = name;
     }
-    // league setup method creates 5 teams and adds them to the division
+    // league setup method creates 5 teams and adds them to this division
+    // by default 12 players and 2 coaches are automatically generated for each team
+    // which can be modified later
     public void leagueSetup(String team1, String team2, String team3,
                             String team4, String team5){
         this.divisionArr[0] = new team(team1);
@@ -28,7 +32,7 @@ public class division {
         this.divisionArr[4] = new team(team5);
     }
     // method to change team name
-    public void setTeamName(String oldName, String newName){
+    public void changeTeamName(String oldName, String newName){
         for(int i=0; i<5; i++){
             if (this.divisionArr[i].getTeamName() == oldName){
                 this.divisionArr[i].setName(newName);
@@ -37,39 +41,91 @@ public class division {
     }
     // addMatch method creates a match object and stores the teams that played and their scores,
     // it also calculates who won, if match cannot be added it will return false
-    public boolean addMatch(String team1, int score1, String team2, int score2){
-        // temporay holders for team object
-        team tempTeam1 = null;
-        team tempTeam2 = null;
+//    public boolean addMatch(String team1, int score1, String team2, int score2){
+//        // temporay holders for team object
+//        team tempTeam1 = null;
+//        team tempTeam2 = null;
+//        for(int i=0; i<5; i++){
+//            if (this.divisionArr[i].getTeamName() == team1){
+//                tempTeam1 = this.divisionArr[i];
+//            }
+//            else if(this.divisionArr[i].getTeamName() == team2){
+//                tempTeam2 = this.divisionArr[i];
+//            }
+//        }
+//        // case if given teams do not exists
+//        // program will terminate
+//        if ((tempTeam1 == null)||(tempTeam2 == null)){
+//            System.out.println("Teams are not present in this division.");
+//            return false;
+//        }
+//        // making a match object
+//        set aMatch = new set(tempTeam1, score1, tempTeam2, score2);
+//        // adding the match object to matchSetArr
+//        for(int i=0; i<5; i++){
+//            if (matchSetArr[i] == null){
+//                matchSetArr[i] = aMatch;
+//                return true;
+//            }
+//        }
+//        System.out.println("Already 5 matches played for "+ this.divisionName);
+//        return false;
+//    }
+    // initiate Match method that holds five sets of game
+    public match initiateMatch(){
+        match initMatch = new match(this.divisionArr);
+        // hold matches in array to calculate standings
+        // need to add arrayList here
         for(int i=0; i<5; i++){
-            if (this.divisionArr[i].getTeamName() == team1){
-                tempTeam1 = this.divisionArr[i];
-            }
-            else if(this.divisionArr[i].getTeamName() == team2){
-                tempTeam2 = this.divisionArr[i];
+            if (matchArr[i] == null){
+                matchArr[i] = initMatch;
+                return initMatch;
             }
         }
-        // case if given teams do not exists
-        // program will terminate
-        if ((tempTeam1 == null)||(tempTeam2 == null)){
-            System.out.println("Teams are not present in this division.");
-            return false;
-        }
-        // making a match object
-        set aMatch = new set(tempTeam1, score1, tempTeam2, score2);
-        // adding the match object to matchSetArr
-        for(int i=0; i<5; i++){
-            if (matchSetArr[i] == null){
-                matchSetArr[i] = aMatch;
-                return true;
-            }
-        }
-        System.out.println("Already 5 matches played for "+ this.divisionName);
-        return false;
+        return null;
     }
-    // calculates standings
-    public void calculateStandings(){
+    // calculates matches won by each team
+    public void matchWins(){
 
+    }
+    // calculates standings of teams in this division and its points
+    public void calculateStandings(){
+        int[] numOfSetWon = {0, 0, 0, 0, 0};
+        // looping through match set to get number of wins for each team
+        for(int i=0; i<5; i++){
+            if (this.matchArr[i].getWinner() == divisionArr[0]){
+                numOfSetWon[0]++;
+            }
+            if (this.matchArr[i].getWinner() == divisionArr[1]){
+                numOfSetWon[1]++;
+            }
+            if (this.matchArr[i].getWinner() == divisionArr[2]){
+                numOfSetWon[2]++;
+            }
+            if (this.matchArr[i].getWinner() == divisionArr[3]){
+                numOfSetWon[3]++;
+            }
+            if (this.matchArr[i].getWinner() == divisionArr[4]){
+                numOfSetWon[4]++;
+            }
+        }
+        System.out.println("Standings for " + this.divisionName + ":");
+        for(int i=0; i<5; i++){
+            System.out.println(this.divisionArr[i].getTeamName()
+                    + " won "+ numOfSetWon[i] +" matches.");
+        }
+        System.out.println();
+        System.out.print("Winner: ");
+        int highest = 0;
+        int index = 0;
+        for(int i=0; i<5; i++){
+            if (numOfSetWon[i]>highest){
+                highest = numOfSetWon[i];
+                index = i;
+            }
+        }
+        System.out.print(this.divisionArr[index].getTeamName());
+        System.out.println();
     }
 
 
