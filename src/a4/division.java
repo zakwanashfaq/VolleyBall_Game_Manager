@@ -9,6 +9,8 @@ public class division {
     private set[] matchSetArr = {null, null, null, null, null};
     // array of 5 match sets initialized with null
     private match[] matchArr = {null, null, null, null, null};
+    // creating match object
+    match matchObj = new match(this.divisionArr);
     // constructor that takes in division name
     public division(String name){
         this.divisionName = name;
@@ -39,10 +41,22 @@ public class division {
             }
         }
     }
-    // addMatch method creates a match object and stores the teams that played and their scores,
-    // it also calculates who won, if match cannot be added it will return false
-//    public boolean addMatch(String team1, int score1, String team2, int score2){
-//        // temporay holders for team object
+    // initiating a match
+    public match initiateMatch(){
+        match initMatch = new match(this.divisionArr);
+        // hold matches in array to calculate standings
+        // need to add arrayList here
+        for(int i=0; i<5; i++){
+            if (matchArr[i] == null){
+                matchArr[i] = initMatch;
+                return initMatch;
+            }
+        }
+        return null;
+    }
+    // calculates matches won by each team
+    public void addMatch(String team1, int score1, String team2, int score2){
+        // temporary holders for team object
 //        team tempTeam1 = null;
 //        team tempTeam2 = null;
 //        for(int i=0; i<5; i++){
@@ -57,39 +71,17 @@ public class division {
 //        // program will terminate
 //        if ((tempTeam1 == null)||(tempTeam2 == null)){
 //            System.out.println("Teams are not present in this division.");
-//            return false;
+//            return;
 //        }
-//        // making a match object
-//        set aMatch = new set(tempTeam1, score1, tempTeam2, score2);
-//        // adding the match object to matchSetArr
-//        for(int i=0; i<5; i++){
-//            if (matchSetArr[i] == null){
-//                matchSetArr[i] = aMatch;
-//                return true;
-//            }
-//        }
-//        System.out.println("Already 5 matches played for "+ this.divisionName);
-//        return false;
-//    }
-    // initiate Match method that holds five sets of game
-    public match initiateMatch(){
-        match initMatch = new match(this.divisionArr);
-        // hold matches in array to calculate standings
-        // need to add arrayList here
-        for(int i=0; i<5; i++){
-            if (matchArr[i] == null){
-                matchArr[i] = initMatch;
-                return initMatch;
-            }
-        }
-        return null;
+        matchObj.addMatch(team1, score1, team2, score2);
     }
-    // calculates matches won by each team
-    public void matchWins(){
 
-    }
-    // calculates standings of teams in this division and its points
     public void calculateStandings(){
+        matchObj.calculateStandings();
+    }
+
+    // calculates standings of teams in this division and its points
+    public void calculateStandings2(){
         int[] numOfSetWon = {0, 0, 0, 0, 0};
         // looping through match set to get number of wins for each team
         for(int i=0; i<5; i++){
@@ -127,7 +119,39 @@ public class division {
         System.out.print(this.divisionArr[index].getTeamName());
         System.out.println();
     }
-
+// addMatch method creates a match object and stores the teams that played and their scores,
+    // it also calculates who won, if match cannot be added it will return false
+//    public boolean addMatch(String team1, int score1, String team2, int score2){
+//        // temporay holders for team object
+//        team tempTeam1 = null;
+//        team tempTeam2 = null;
+//        for(int i=0; i<5; i++){
+//            if (this.divisionArr[i].getTeamName() == team1){
+//                tempTeam1 = this.divisionArr[i];
+//            }
+//            else if(this.divisionArr[i].getTeamName() == team2){
+//                tempTeam2 = this.divisionArr[i];
+//            }
+//        }
+//        // case if given teams do not exists
+//        // program will terminate
+//        if ((tempTeam1 == null)||(tempTeam2 == null)){
+//            System.out.println("Teams are not present in this division.");
+//            return false;
+//        }
+//        // making a match object
+//        set aMatch = new set(tempTeam1, score1, tempTeam2, score2);
+//        // adding the match object to matchSetArr
+//        for(int i=0; i<5; i++){
+//            if (matchSetArr[i] == null){
+//                matchSetArr[i] = aMatch;
+//                return true;
+//            }
+//        }
+//        System.out.println("Already 5 matches played for "+ this.divisionName);
+//        return false;
+//    }
+    // initiate Match method that holds five sets of game
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
