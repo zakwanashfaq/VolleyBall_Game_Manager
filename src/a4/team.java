@@ -3,6 +3,8 @@ package a4;
 public class team {
     // team name
     private String name;
+    //team points
+    int points = 0;
     // array of 12 player
     private String[] playerArray = new String[12];
     // two coaches
@@ -21,6 +23,12 @@ public class team {
     // getters and setters
     public String getTeamName() {
         return name;
+    }
+    public int getPoints() {
+        return points;
+    }
+    public void addPoint() {
+        this.points++;
     }
     public void setName(String name) {
         this.name = name;

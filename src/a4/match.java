@@ -97,50 +97,9 @@ public class match {
                 winner = this.divisionArr[i];
             }
         }
+        // adding points if a match os won
+        winner.addPoint();
         return winner;
-    }
-
-    public void calculateStandings(){
-        int[] numOfSetWon = {0, 0, 0, 0, 0};
-        int[] numOfMatchesWon = {0, 0, 0, 0, 0};
-        // looping through match set to get number of wins for each team
-        for(int i=0; i<5; i++){
-            if (this.matchSetArr[i].getWinner() == divisionArr[0]){
-                numOfSetWon[0]++;
-            }
-            if (this.matchSetArr[i].getWinner() == divisionArr[1]){
-                numOfSetWon[1]++;
-            }
-            if (this.matchSetArr[i].getWinner() == divisionArr[2]){
-                numOfSetWon[2]++;
-            }
-            if (this.matchSetArr[i].getWinner() == divisionArr[3]){
-                numOfSetWon[3]++;
-            }
-            if (this.matchSetArr[i].getWinner() == divisionArr[4]){
-                numOfSetWon[4]++;
-            }
-        }
-        for(int i=0; i<5; i++){
-            numOfMatchesWon[i] = numOfSetWon[i]/3;
-        }
-        System.out.println("Standings:");
-        for(int i=0; i<5; i++){
-            System.out.println(this.divisionArr[i].getTeamName()
-                    + " won "+ numOfMatchesWon[i] +" matches.");
-        }
-        System.out.println();
-        System.out.print("Winner: ");
-        int highest = 0;
-        int index = 0;
-        for(int i=0; i<5; i++){
-            if (numOfSetWon[i]>highest){
-                highest = numOfSetWon[i];
-                index = i;
-            }
-        }
-        System.out.print(this.divisionArr[index].getTeamName());
-        System.out.println();
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
