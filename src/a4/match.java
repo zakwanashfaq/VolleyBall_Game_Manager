@@ -9,8 +9,13 @@ public class match {
     private int[] winCount = {0, 0, 0, 0, 0};
     // flag to see if matches should be added
     private boolean flag = true;
-    // flag to see if matche is a draw
+    // flag to see if matches is a draw
     private boolean draw = false;
+    // teams that play the match
+    team team1 = null;
+    team team2 = null;
+    // team that won
+    team winner = null;
 
     // Match constructor
     public  match(team [] divArr){
@@ -26,8 +31,10 @@ public class match {
             for (int i = 0; i < 5; i++) {
                 if (this.divisionArr[i].getTeamName() == team1) {
                     tempTeam1 = this.divisionArr[i];
+                    this.team1 = tempTeam1;
                 } else if (this.divisionArr[i].getTeamName() == team2) {
                     tempTeam2 = this.divisionArr[i];
+                    this.team2 = tempTeam2;
                 }
             }
             // case if given teams do not exists
@@ -50,6 +57,10 @@ public class match {
             return false;
         }
         System.out.println("Already 5 sets played for this match or a team won!");
+        return false;
+    }
+    // match in real time
+    public boolean addLiveMatch(){
         return false;
     }
     // figures out if any team won the whole match after a game
@@ -85,7 +96,7 @@ public class match {
     public team getWinner(){
         // code executed if draw
         if (this.draw){
-            return this.matchSetArr[4].getWinner();
+            return this.matchSetArr[4].getDrawResult();
         }
         // code executed if not draw
         int highestPoint = this.winCount[0];
@@ -97,9 +108,29 @@ public class match {
                 winner = this.divisionArr[i];
             }
         }
-        // adding points if a match os won
-        winner.addPoint();
+        this.winner = winner;
         return winner;
+    }
+    // won by difference
+    public int wonByDifference(){
+        // first finding team that won overall
+        int highestPoint = this.winCount[0];
+        team winner = this.divisionArr[0];
+        for(int i=0; i<5; i++){
+            if (winCount[i] > highestPoint){
+                highestPoint = this.winCount[i];
+                winner = this.divisionArr[i];
+            }
+        }
+        // calculating difference
+        int difference = 0;
+        for(int i=0; i<5; i++){
+            if(this.matchSetArr[i]==null){continue;}
+            if((this.matchSetArr[i].getWinner() == winner)){
+                difference = difference + this.matchSetArr[i].pointDifference;
+            }
+        }
+        return difference;
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -117,9 +148,11 @@ public class match {
         m1.addMatch("team1", 95, "team2", 45); // t1
         m1.addMatch("team1", 51, "team2", 50); // t1
         m1.addMatch("team1", 195, "team2", 105);  // t1
+
 //        m1.addMatch("team1", 5, "team3", 50); // t3
 
         System.out.println(m1.getWinner().getTeamName()+" won.");
+        System.out.println(m1.wonByDifference());
 
 
 

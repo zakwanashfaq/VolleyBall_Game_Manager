@@ -28,7 +28,7 @@ public class team {
         return points;
     }
     public void addPoint() {
-        this.points++;
+        this.points = this.points + 1;
     }
     public void setName(String name) {
         this.name = name;
@@ -62,8 +62,8 @@ public class team {
 
     //getters
 
-
-    // main method to test team class
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+    // main method to test if team class is working properly
     public static void main(String[] args) {
         team t = new team("Zaksan");
         t.printPlayers();

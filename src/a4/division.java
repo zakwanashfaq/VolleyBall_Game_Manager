@@ -41,8 +41,134 @@ public class division {
             }
         }
     }
-    // addMatch method creates a match object and stores the teams that played and their scores,
-    // it also calculates who won, if match cannot be added it will return false
+    // initiate Match method that holds five sets of game
+    public match initiateMatch(){
+        match initMatch = new match(this.divisionArr);
+        // hold matches in array to calculate standings
+        // need to add arrayList here
+       matchArray.add(initMatch);
+        return initMatch;
+    }
+    // calculates matches won by each team
+    public void matchWins(){
+
+    }
+    // calculates standings of teams in this division and its points
+    public void calculateStandings(){
+        int[] numOfMatchesWon = {0, 0, 0, 0, 0};
+        int[] numOfPoints = {0, 0, 0, 0, 0};
+        // looping through match set to get number of matches wins for each team
+        for(int i=0; i<this.matchArray.size(); i++){
+            if (this.matchArray.get(i).getWinner() == divisionArr[0]){
+                numOfMatchesWon[0]++;
+            }
+            if (this.matchArray.get(i).getWinner() == divisionArr[1]){
+                numOfMatchesWon[1]++;
+            }
+            if (this.matchArray.get(i).getWinner() == divisionArr[2]){
+                numOfMatchesWon[2]++;
+            }
+            if (this.matchArray.get(i).getWinner() == divisionArr[3]){
+                numOfMatchesWon[3]++;
+            }
+            if (this.matchArray.get(i).getWinner() == divisionArr[4]){
+                numOfMatchesWon[4]++;
+            }
+        }
+        // looping through teams set to get number of sets wins for each team
+        for(int i=0; i<5; i++){
+            numOfPoints[i] = this.divisionArr[i].points + numOfMatchesWon[i];
+        }
+        System.out.println("Standings for " + this.divisionName + ":");
+        for(int i=0; i<5; i++){
+            System.out.println(this.divisionArr[i].getTeamName()
+                    + " won "+ numOfMatchesWon[i] +" matches. Total points(set wins included): " + (numOfPoints[i]));
+        }
+        System.out.println();
+        System.out.print("Winner: ");
+        int highest = 0;
+        int index = 0;
+        for(int i=0; i<5; i++){
+            if (numOfPoints[i]>highest){
+                highest = numOfPoints[i];
+                index = i;
+            }
+        }
+        ArrayList<team> teamArrayForCalculatingDraw = new ArrayList<team>();
+        // calculating winner for draw points
+        for(int i=0; i<5; i++){
+            if (numOfPoints[i]==highest){
+                teamArrayForCalculatingDraw.add(this.divisionArr[i]);
+            }
+        }
+        // int array to hold pointDifference for each team drawing
+        int[] differnece = new int[teamArrayForCalculatingDraw.size()];
+        // initiating with zero
+        for(int i=0; i<differnece.length; i++){
+            differnece[i] = 0;
+        }
+        if(teamArrayForCalculatingDraw.size()>1){
+            ArrayList<match> matchArrayForCalculatingDraw = new ArrayList<match>();
+            for(int i=0; i<teamArrayForCalculatingDraw.size(); i++){
+                for(int j=0; j<matchArray.size(); j++){
+                    if (matchArray.get(j).getWinner() == teamArrayForCalculatingDraw.get(i)){
+                        differnece[i] = differnece[i] + matchArray.get(j).wonByDifference();
+                    }
+                }
+            }
+            int highestDrawSet = 0;
+            int indexSet = 0;
+            for(int i=0; i<differnece.length; i++){
+                if (differnece[i] > highestDrawSet){
+                    highestDrawSet = differnece[i];
+                    indexSet = i;
+                }
+            }
+            System.out.print(teamArrayForCalculatingDraw.get(indexSet).getTeamName()+". ");
+            System.out.print("With a highest point difference of "+ differnece[indexSet]);
+            System.out.println();
+            return;
+        }
+
+
+        System.out.print(this.divisionArr[index].getTeamName());
+        System.out.println();
+    }
+
+
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // tst code to check if division class is working properly
+    void tst(){
+        for(int i=0; i<5; i++){
+//            String x = this.divisionArr[i].getTeamName();
+//            System.out.println(x);
+            this.divisionArr[i].printPlayers();
+        }
+    }
+    public static void main(String[] args) {
+        division d = new division("divName");
+        d.tst();
+    }
+    //        automatic team making loop(test code)
+//        for(int i=0; i<5; i++){
+//            int x = i+1;
+//            team t = new team("team"+x);
+//            this.divisionArr[i] = t;
+//        }
+}
+
+
+
+
+
+
+
+
+
+
+// addMatch method creates a match object and stores the teams that played and their scores,
+// it also calculates who won, if match cannot be added it will return false
 //    public boolean addMatch(String team1, int score1, String team2, int score2){
 //        // temporay holders for team object
 //        team tempTeam1 = null;
@@ -73,77 +199,3 @@ public class division {
 //        System.out.println("Already 5 matches played for "+ this.divisionName);
 //        return false;
 //    }
-    // initiate Match method that holds five sets of game
-    public match initiateMatch(){
-        match initMatch = new match(this.divisionArr);
-        // hold matches in array to calculate standings
-        // need to add arrayList here
-       matchArray.add(initMatch);
-        return initMatch;
-    }
-    // calculates matches won by each team
-    public void matchWins(){
-
-    }
-    // calculates standings of teams in this division and its points
-    public void calculateStandings(){
-        int[] numOfSetWon = {0, 0, 0, 0, 0};
-        // looping through match set to get number of wins for each team
-        for(int i=0; i<this.matchArray.size(); i++){
-            if (this.matchArray.get(i).getWinner() == divisionArr[0]){
-                numOfSetWon[0]++;
-            }
-            if (this.matchArray.get(i).getWinner() == divisionArr[1]){
-                numOfSetWon[1]++;
-            }
-            if (this.matchArray.get(i).getWinner() == divisionArr[2]){
-                numOfSetWon[2]++;
-            }
-            if (this.matchArray.get(i).getWinner() == divisionArr[3]){
-                numOfSetWon[3]++;
-            }
-            if (this.matchArray.get(i).getWinner() == divisionArr[4]){
-                numOfSetWon[4]++;
-            }
-        }
-        System.out.println("Standings for " + this.divisionName + ":");
-        for(int i=0; i<5; i++){
-            System.out.println(this.divisionArr[i].getTeamName()
-                    + " won "+ numOfSetWon[i] +" matches.");
-        }
-        System.out.println();
-        System.out.print("Winner: ");
-        int highest = 0;
-        int index = 0;
-        for(int i=0; i<5; i++){
-            if (numOfSetWon[i]>highest){
-                highest = numOfSetWon[i];
-                index = i;
-            }
-        }
-        System.out.print(this.divisionArr[index].getTeamName());
-        System.out.println();
-    }
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //testing methods(please ignore)
-    void tst(){
-        for(int i=0; i<5; i++){
-//            String x = this.divisionArr[i].getTeamName();
-//            System.out.println(x);
-            this.divisionArr[i].printPlayers();
-        }
-    }
-    public static void main(String[] args) {
-        division d = new division("divName");
-        d.tst();
-    }
-    //        automatic team making loop(test code)
-//        for(int i=0; i<5; i++){
-//            int x = i+1;
-//            team t = new team("team"+x);
-//            this.divisionArr[i] = t;
-//        }
-}

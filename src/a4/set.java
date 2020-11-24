@@ -36,4 +36,19 @@ public class set {
         // returns null if match draw
         else return null;
     }
+    // returns the winning team
+    public team getDrawResult(){
+        if (score1>score2){
+            //calculating point difference
+            this.pointDifference = score1 - score2;
+            return team1;
+        }
+        else if (score1<score2){
+            //calculating point difference
+            this.pointDifference = score2 - score1;
+            return team2;
+        }
+        // returns null if match draw
+        else return null;
+    }
 }

@@ -1,20 +1,20 @@
 package a4;
 
-public class VollyBall {
+public class VolleyBall {
     public static void main(String[] args) {
         division division1  = new division("Division 1(Test)");
         division1.leagueSetup("Zakwan", "Zian","Ashfaq", "Man","UC");
 
         match match1 = division1.initiateMatch();
-        match1.addMatch("Zakwan",15, "Zian", 25);
-        match1.addMatch("Zakwan",35, "Zian", 25);
-        match1.addMatch("Zakwan",15, "Zian", 25);
-        match1.addMatch("Zakwan",35, "Zian", 25);
-        match1.addMatch("Zakwan",15, "Zian", 25); // t2 won
+        match1.addMatch("Zakwan",15, "Zian", 21);
+        match1.addMatch("Zakwan",0, "Zian", 21);
+        match1.addMatch("Zakwan",15, "Zian", 21);
+//        match1.addMatch("Zakwan",0, "Zian", 21);
+//        match1.addMatch("Zakwan",15, "Zian", 21); // t2 won
 
         match match2 = division1.initiateMatch();
         match2.addMatch("Zakwan",15, "UC", 225);
-        match2.addMatch("Zakwan",35, "UC", 225);
+        match2.addMatch("Zakwan",35, "UC", 36);
         match2.addMatch("Zakwan",15, "UC", 225);
 
         match match3 = division1.initiateMatch();
@@ -41,10 +41,10 @@ public class VollyBall {
         match6.addMatch("Zakwan",35, "Man", 25);
         match6.addMatch("Zakwan",15, "Man", 25); // t2 won
 
-        match match7 = division1.initiateMatch();
-        match7.addMatch("Zakwan",15, "Man", 0);
-        match7.addMatch("Zakwan",35, "Man", 0);
-        match7.addMatch("Zakwan",15, "Man", 0); // t1 won
+//        match match7 = division1.initiateMatch();
+//        match7.addMatch("Zakwan",15, "Man", 0);
+//        match7.addMatch("Zakwan",35, "Man", 0);
+//        match7.addMatch("Zakwan",15, "Man", 0); // t1 won
 
         match match8 = division1.initiateMatch();
         match8.addMatch("Ashfaq",15, "Man", 0);
