@@ -1,4 +1,6 @@
 package a4;
+import java.util.Scanner;
+import java.util.Scanner.*;
 
 public class match {
     // array to hold five sets of game
@@ -60,7 +62,54 @@ public class match {
         return false;
     }
     // match in real time
-    public boolean addLiveMatch(){
+    public boolean addLiveMatch(String team1, String team2){
+        // temporay holders for team object
+        team tempTeam1 = null;
+        team tempTeam2 = null;
+        if (flag){
+            for (int i = 0; i < 5; i++) {
+                if (this.divisionArr[i].getTeamName() == team1) {
+                    tempTeam1 = this.divisionArr[i];
+                    this.team1 = tempTeam1;
+                } else if (this.divisionArr[i].getTeamName() == team2) {
+                    tempTeam2 = this.divisionArr[i];
+                    this.team2 = tempTeam2;
+                }
+            }
+            // case if given teams do not exists
+            // program will terminate
+            if ((tempTeam1 == null) || (tempTeam2 == null)) {
+                System.out.println("Teams are not present in this division.");
+                return false;
+            }
+            //taking score input from user:
+            int score1 = 0;
+            int score2 = 0;
+            Scanner input = new Scanner(System.in);
+            System.out.println("Please enter scores until a team reaches 21 points.");
+            while (((score1<21)&&(score2<21))){
+                System.out.println("Enter how many points "+tempTeam1.getTeamName() +" just scored: ");
+                int score = input.nextInt();  // Read user input
+                score1 = score1 + score;
+                System.out.println("Enter how many points "+tempTeam2.getTeamName() +" just scored: ");
+                int scorE = input.nextInt();  // Read user input
+                score2 = score2 + scorE;
+            }
+
+            // making a match object
+            set aMatch = new set(tempTeam1, score1, tempTeam2, score2);
+            // adding the match object to matchSetArr
+            for (int i = 0; i < 5; i++) {
+                if (matchSetArr[i] == null) {
+                    matchSetArr[i] = aMatch;
+                    checkMatchStatus(i);
+                    return true;
+                }
+            }
+            System.out.println("Already 5 sets played for this match!");
+            return false;
+        }
+        System.out.println("Already 5 sets played for this match or a team won!");
         return false;
     }
     // figures out if any team won the whole match after a game
