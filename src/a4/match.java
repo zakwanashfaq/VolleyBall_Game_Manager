@@ -1,3 +1,9 @@
+/*
+ * Zakwan Ashfaq Zian - 201950250 - Wrote the match and division and managed the whole project
+ * Fysal Rabbe - 201866571 - Wrote the main and VolleyBall
+ * Abdul Shaji - 201956968  - Wrote the team and set
+ */
+
 package a4;
 import java.util.Scanner;
 import java.util.Scanner.*;
@@ -86,7 +92,7 @@ public class match {
             int score1 = 0;
             int score2 = 0;
             Scanner input = new Scanner(System.in);
-            System.out.println("Please enter scores until a team reaches 21 points.");
+            System.out.println("**Please keep entering scores until a team reaches 21 points.**");
             while (((score1<21)&&(score2<21))){
                 System.out.println("Enter how many points "+tempTeam1.getTeamName() +" just scored: ");
                 int score = input.nextInt();  // Read user input

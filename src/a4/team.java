@@ -1,3 +1,9 @@
+/*
+ * Zakwan Ashfaq Zian - 201950250 - Wrote the match and division and managed the whole project
+ * Fysal Rabbe - 201866571 - Wrote the main and VolleyBall
+ * Abdul Shaji - 201956968  - Wrote the team and set
+ */
+
 package a4;
 
 public class team {
